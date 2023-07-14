@@ -1,1 +1,15 @@
 server.port: 8090
+spring:
+  datasource:
+    url: jdbc:h2:mem:compoundinterest;INIT=CREATE SCHEMA IF NOT EXISTS compound_interest
+    driverClassName: org.h2.Driver
+  h2.console.enabled: true
+  jpa:
+    hibernate.ddl-auto: update
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: compound_interest
+        format_sql: true
+        jakarta.persistence.sharedCache.mode: UNSPECIFIED
