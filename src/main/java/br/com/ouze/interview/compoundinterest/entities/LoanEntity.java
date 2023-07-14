@@ -2,18 +2,18 @@ package br.com.ouze.interview.compoundinterest.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Table(name = "loan", schema = "compound_interest")
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@RequiredArgsConstructor
 public class LoanEntity extends BaseEntity {
 
     @Column(unique = true, nullable = false)
@@ -27,4 +27,14 @@ public class LoanEntity extends BaseEntity {
 
     @Column(name = "total_value", nullable = false, columnDefinition = "decimal")
     private BigDecimal totalValue;
+
+    @OneToMany(mappedBy = "loan")
+    private List<LoanInstallmentEntity> installments;
+
+    public LoanEntity(String cpf, Boolean isOuze, Integer installments, BigDecimal value) {
+        this.cpf = cpf;
+        this.isOuze = isOuze;
+        this.totalInstallments = installments;
+        this.totalValue = value;
+    }
 }
