@@ -9,8 +9,6 @@ import br.com.ouze.interview.compoundinterest.repositories.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -37,10 +35,11 @@ public class OrderLoan {
 
     private void createInstallments(final LoanEntity loan) {
         final var installments = new ArrayList<LoanInstallmentEntity>();
-        final var value = loan.getTotalValue().divide(BigDecimal.valueOf(loan.getTotalInstallments()), RoundingMode.FLOOR);
+        final var value = loan.getInstallmentsValue();
         for (var i = 1; i <= loan.getTotalInstallments(); i++) {
             installments.add(new LoanInstallmentEntity(i, value, LocalDate.now().plus(i, ChronoUnit.MONTHS), loan));
         }
         this.loanInstallmentRepository.saveAll(installments);
     }
+
 }

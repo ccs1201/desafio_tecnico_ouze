@@ -6,14 +6,22 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
+
+import static java.lang.Boolean.TRUE;
+import static java.math.BigDecimal.valueOf;
+import static java.math.RoundingMode.CEILING;
+import static java.math.RoundingMode.UNNECESSARY;
 
 @Data
 @Table(name = "loan", schema = "compound_interest")
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class LoanEntity extends BaseEntity {
 
     @Column(unique = true, nullable = false)
@@ -25,7 +33,7 @@ public class LoanEntity extends BaseEntity {
     @Column(name = "total_installments", nullable = false)
     private Integer totalInstallments;
 
-    @Column(name = "total_value", nullable = false, columnDefinition = "decimal")
+    @Column(name = "total_value", nullable = false, columnDefinition = "float")
     private BigDecimal totalValue;
 
     @OneToMany(mappedBy = "loan")
@@ -36,5 +44,16 @@ public class LoanEntity extends BaseEntity {
         this.isOuze = isOuze;
         this.totalInstallments = installments;
         this.totalValue = value;
+    }
+
+    public BigDecimal getInstallmentsValue() {
+        return this.totalValue.divide(valueOf(this.totalInstallments), UNNECESSARY)
+                .multiply(this.getFee())
+                .round(new MathContext(4, CEILING));
+    }
+
+    private BigDecimal getFee() {
+        if (TRUE.equals(this.isOuze)) return valueOf(1.07);
+        return valueOf(1.10);
     }
 }

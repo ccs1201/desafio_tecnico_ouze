@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,18 +16,22 @@ import java.time.LocalDate;
 @Table(name = "loan_installment", schema = "compound_interest")
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class LoanInstallmentEntity extends BaseEntity {
 
     @Column(nullable = false)
     private Integer installment;
 
-    @Column(name = "installment_value", nullable = false, columnDefinition = "decimal")
+    @Column(name = "installment_value", nullable = false, columnDefinition = "float")
     private BigDecimal value;
 
     @Column(name = "due_date", nullable = false)
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate dueDate;
+
+    @Column(name = "was_payed", nullable = false, columnDefinition = "bit DEFAULT 0")
+    private Boolean wasPayed = Boolean.FALSE;
 
     @ManyToOne
     @JoinColumn(name = "loan_id", nullable = false)
