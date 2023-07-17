@@ -13,3 +13,18 @@ spring:
         default_schema: compound_interest
         format_sql: true
         jakarta.persistence.sharedCache.mode: UNSPECIFIED
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+    VirtualHost: /
+api.event:
+  exchange: loan.exchange
+  payment:
+    confirmation:
+      routing-key: payment.confirmation
+      queue: payment.confirmation.queue
+      error:
+        ttl: 10000
+
