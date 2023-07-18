@@ -1,30 +1,21 @@
 package br.com.ouze.interview.compoundinterest.config.queue;
 
 import br.com.ouze.interview.compoundinterest.config.AmqpConfig;
+import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class PaymentConfirmationAmqpConfig extends AmqpConfig {
 
-    @Value("${api.event.exchange}")
-    private String exchange;
-
-    @Value("${api.event.payment.confirmation.routing-key}")
-    private String routingKey;
-
-    @Value("${api.event.payment.confirmation.queue}")
-    private String queue;
-
-    @Value("${api.event.payment.confirmation.error.ttl}")
-    private Integer ttl;
+    private final PaymentConfirmationConstant constant;
 
     @Bean
     public RabbitAdmin amqpAdmin(ConnectionFactory connectionFactory) {
@@ -57,7 +48,7 @@ public class PaymentConfirmationAmqpConfig extends AmqpConfig {
     @Bean
     DirectExchange directExchange() {
         return ExchangeBuilder
-                .directExchange(exchange)
+                .directExchange(constant.getExchange())
                 .durable(true)
                 .autoDelete()
                 .build();
@@ -66,35 +57,27 @@ public class PaymentConfirmationAmqpConfig extends AmqpConfig {
 
     @Bean
     Queue queue() {
-        return QueueBuilder.durable(queue)
+        return QueueBuilder.durable(constant.getQueue())
                 .autoDelete()
-                .deadLetterExchange("")
-                .deadLetterRoutingKey(getDlq())
+                .deadLetterExchange(PaymentConfirmationConstant.EMPTY)
+                .deadLetterRoutingKey(constant.getDql())
                 .build();
-    }
-
-    private String getDlq() {
-        return this.queue.concat(".dlq");
     }
 
     @Bean
     Queue parkingLot() {
-        return QueueBuilder.durable(getParkingLot())
+        return QueueBuilder.durable(constant.getParkingLot())
                 .lazy()
                 .build();
     }
 
-    private String getParkingLot() {
-        return this.queue.concat(".parking-lot");
-    }
-
     @Bean
     Queue dlq() {
-        return QueueBuilder.durable(getDlq())
+        return QueueBuilder.durable(constant.getDql())
                 .autoDelete()
-                .deadLetterExchange("")
-                .deadLetterRoutingKey(queue)
-                .ttl(ttl)
+                .deadLetterExchange(PaymentConfirmationConstant.EMPTY)
+                .deadLetterRoutingKey(constant.getQueue())
+                .ttl(constant.getTtl())
                 .build();
     }
 
@@ -102,6 +85,6 @@ public class PaymentConfirmationAmqpConfig extends AmqpConfig {
     Binding binding() {
         return BindingBuilder.bind(queue())
                 .to(directExchange())
-                .with(routingKey);
+                .with(constant.getRoutingKey());
     }
 }

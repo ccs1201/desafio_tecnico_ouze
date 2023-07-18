@@ -33,7 +33,7 @@ public class LoanInstallmentEntity extends BaseEntity {
     @Column(name = "was_payed", nullable = false, columnDefinition = "bit DEFAULT 0")
     private Boolean wasPayed = Boolean.FALSE;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "loan_id", nullable = false)
     private LoanEntity loan;
 
