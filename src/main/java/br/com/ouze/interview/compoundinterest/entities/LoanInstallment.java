@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class LoanInstallmentEntity extends BaseEntity {
+public class LoanInstallment extends BaseEntity {
 
     @Column(nullable = false)
     private Integer installment;
@@ -35,9 +35,9 @@ public class LoanInstallmentEntity extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "loan_id", nullable = false)
-    private LoanEntity loan;
+    private Loan loan;
 
-    public LoanInstallmentEntity(Integer installment, BigDecimal value, LocalDate dueDate, LoanEntity loan) {
+    public LoanInstallment(Integer installment, BigDecimal value, LocalDate dueDate, Loan loan) {
         this.installment = installment;
         this.value = value;
         this.dueDate = dueDate;

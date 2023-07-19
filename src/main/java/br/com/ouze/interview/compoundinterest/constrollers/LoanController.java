@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/v1/loan")
@@ -20,12 +21,12 @@ public class LoanController {
     private final GetCustomerInstallments getCustomerInstallments;
 
     @PostMapping("/order")
-    public OrderLoanResponse order(@RequestBody OrderLoanRequest dto) {
+    public OrderLoanResponse order(@RequestBody OrderLoanRequest dto) throws ResponseStatusException {
         return this.orderLoan.execute(dto);
     }
 
-    @GetMapping("/installment/{cpf}")
-    public Page<GetLoanInstallmentResponse> getInstallments(@PathVariable("cpf") String cpf, Pageable pageable) {
-        return this.getCustomerInstallments.execute(cpf, pageable);
+    @GetMapping("/installment/{id}")
+    public Page<GetLoanInstallmentResponse> getInstallments(@PathVariable("id") Long clientId, Pageable pageable) throws ResponseStatusException{
+        return this.getCustomerInstallments.execute(clientId, pageable);
     }
 }

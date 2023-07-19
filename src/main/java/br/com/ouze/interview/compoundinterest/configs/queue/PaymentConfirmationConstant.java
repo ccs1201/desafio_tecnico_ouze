@@ -1,4 +1,4 @@
-package br.com.ouze.interview.compoundinterest.config.queue;
+package br.com.ouze.interview.compoundinterest.configs.queue;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

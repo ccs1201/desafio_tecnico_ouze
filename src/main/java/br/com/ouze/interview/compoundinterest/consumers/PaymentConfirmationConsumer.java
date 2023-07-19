@@ -1,6 +1,6 @@
 package br.com.ouze.interview.compoundinterest.consumers;
 
-import br.com.ouze.interview.compoundinterest.config.queue.PaymentConfirmationConstant;
+import br.com.ouze.interview.compoundinterest.configs.queue.PaymentConfirmationConstant;
 import br.com.ouze.interview.compoundinterest.dtos.PaymentConfirmationMessage;
 import br.com.ouze.interview.compoundinterest.services.ConfirmPayment;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +11,7 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 
@@ -39,7 +40,7 @@ public class PaymentConfirmationConsumer {
         }
     }
 
-    private void execute(Message message) throws IOException {
+    private void execute(Message message) throws IOException, ResponseStatusException {
         final var paymentMessage = this.mapper.readValue(message.getBody(), PaymentConfirmationMessage.class);
         this.confirmPayment.execute(paymentMessage);
     }

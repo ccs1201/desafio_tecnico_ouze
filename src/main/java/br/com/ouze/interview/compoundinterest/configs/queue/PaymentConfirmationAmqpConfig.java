@@ -1,6 +1,6 @@
-package br.com.ouze.interview.compoundinterest.config.queue;
+package br.com.ouze.interview.compoundinterest.configs.queue;
 
-import br.com.ouze.interview.compoundinterest.config.AmqpConfig;
+import br.com.ouze.interview.compoundinterest.configs.AmqpConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
