@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
-    Optional<Loan> findFirstByClientIdAndIsActiveTrueOrderByCreateAtDesc(Long clientId);
     Optional<Loan> findFirstByClientIdOrderByCreateAtDesc(Long clientId);
 }

@@ -20,20 +20,12 @@ Aqui estão os requisitos para a implementação do módulo:
     - Quando todas as parcelas forem pagas, o contrato deve ser desativado. O cliente poderá criar um novo contrato após isso, voltando ao primeiro requisito.
     - Em caso de falha na criação do contrato ou na confirmação do pagamento, uma transação deve ser criada e o rollback deve ser feito para evitar incoerências nos dados.
 
-A seguir, descrevemos as tarefas que devem ser realizadas para cada nível de experiência:
+A seguir, descrevemos as tarefas que devem ser realizadas:
 
 Senior:
 - Disponibilizar um endpoint para a criação do contrato, seguindo os requisitos mencionados anteriormente.
 - Construir um consumidor para processar o pagamento das parcelas do empréstimo, seguindo os requisitos mencionados anteriormente.
 
-Pleno:
-- Realizar o cálculo correto das parcelas com base no tipo do cliente.
-- Construir a lógica de confirmação de pagamento, seguindo os requisitos mencionados anteriormente.
-
-Junior:
-- Corrigir a falha no cálculo das parcelas, onde os clientes Ouze estão com a mesma taxa dos clientes não Ouze.
-- Corrigir a validação da quantidade mínima e máxima de parcelas na criação do contrato.
-- Corrigir a falha na fila de estacionamento, onde as falhas na confirmação do pagamento não estão sendo redirecionadas conforme os requisitos mencionados anteriormente.
 
 Você deve implementar a solução utilizando a linguagem Java e desenvolvê-la de forma modular e extensível, considerando possíveis atualizações e requisitos adicionais no futuro.
 
