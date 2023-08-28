@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 
 @ExtendWith(MockitoExtension.class)
-class amountCalculatorImplTest {
+class AmountCalculatorImplTest {
 
     private Loan loan;
     @InjectMocks

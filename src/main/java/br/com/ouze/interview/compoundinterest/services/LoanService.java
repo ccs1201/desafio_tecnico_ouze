@@ -70,8 +70,7 @@ public class LoanService {
 
             repository.saveAndFlush(loan);
         } catch (Exception e) {
-            throw new InternalServiceException("Erro ao tentar desativar contrato", e);
+            throw new InternalServiceException("Erro ao tentar inativar contrato", e);
         }
-
     }
 }

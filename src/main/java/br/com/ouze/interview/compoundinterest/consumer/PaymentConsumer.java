@@ -7,7 +7,6 @@ import br.com.ouze.interview.compoundinterest.publisher.PaymentProducer;
 import br.com.ouze.interview.compoundinterest.services.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class PaymentConsumer {
-
-    private final Queue queue;
 
     private final PaymentService paymentService;
     private final PaymentProducer paymentProducer;
