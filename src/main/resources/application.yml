@@ -3,7 +3,6 @@ spring:
   datasource:
     url: jdbc:h2:mem:compoundinterest;INIT=CREATE SCHEMA IF NOT EXISTS compound_interest
     driverClassName: org.h2.Driver
-  h2.console.enabled: true
   jpa:
     hibernate.ddl-auto: update
     open-in-view: false
@@ -13,6 +12,12 @@ spring:
         default_schema: compound_interest
         format_sql: true
         jakarta.persistence.sharedCache.mode: UNSPECIFIED
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      settings:
+        web-allow-others: true
   rabbitmq:
     username: guest
     password: guest

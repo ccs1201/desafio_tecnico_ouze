@@ -1,5 +1,6 @@
 package br.com.ouze.interview.compoundinterest.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -14,7 +15,7 @@ import java.util.List;
 
 import static java.lang.Boolean.TRUE;
 import static java.math.BigDecimal.valueOf;
-import static java.math.RoundingMode.*;
+import static java.math.RoundingMode.HALF_UP;
 
 @Data
 @Table(name = "loan", schema = "compound_interest")
@@ -38,7 +39,7 @@ public class Loan extends BaseEntity {
     @Column(name = "total_value", nullable = false, columnDefinition = "float")
     private BigDecimal totalValue;
 
-    @OneToMany(mappedBy = "loan")
+    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LoanInstallment> installments;
 
     public Loan(Long clientId, Boolean isOuze, Integer installments, BigDecimal value) {
@@ -54,8 +55,13 @@ public class Loan extends BaseEntity {
                 .round(new MathContext(3, HALF_UP));
     }
 
-    private BigDecimal getFee() {
+    public BigDecimal getFee() {
         if (TRUE.equals(this.isOuze)) return valueOf(1.07);
         return valueOf(1.10);
+    }
+
+    public BigDecimal getCompoundFee() {
+        if (TRUE.equals(this.isOuze)) return valueOf(1.007);
+        return valueOf(1.010);
     }
 }

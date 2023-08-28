@@ -29,8 +29,9 @@ public class PaymentConfirmationAmqpConfig extends AmqpConfig {
     }
 
     @Bean
-    SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
+    SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory, Jackson2JsonMessageConverter messageConverter) {
         final var factory = new SimpleRabbitListenerContainerFactory();
+        factory.setMessageConverter(messageConverter);
         factory.setConnectionFactory(connectionFactory);
         factory.setConcurrentConsumers(concurrentConsumers);
         factory.setDefaultRequeueRejected(defaultRequeueRejected);
