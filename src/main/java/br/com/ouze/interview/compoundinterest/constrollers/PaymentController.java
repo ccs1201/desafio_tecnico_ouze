@@ -23,7 +23,8 @@ public class PaymentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public CompletableFuture<Void> pay(@PathVariable @NotNull @Positive Long loan_id, @PathVariable @Positive @NotNull Integer installment_number) {
+    public CompletableFuture<Void> pay(@PathVariable @NotNull @Positive Long loan_id,
+                                       @PathVariable @Positive @NotNull Integer installment_number) {
         return CompletableFuture.runAsync(() ->
                 publisher.publish(new PaymentDTO(loan_id, installment_number)));
     }

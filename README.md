@@ -1,6 +1,11 @@
-Agradecemos pelo seu interesse na vaga de desenvolvedor em nossa empresa. Como parte do processo de seleção, gostaríamos de solicitar sua participação em um teste de desenvolvimento relacionado a um software financeiro. O objetivo deste teste é avaliar suas habilidades técnicas, capacidade de lidar com conceitos financeiros e sua capacidade de desenvolver soluções para problemas do mundo real.
+Agradecemos pelo seu interesse na vaga de desenvolvedor em nossa empresa. Como parte do processo de seleção, gostaríamos
+de solicitar sua participação em um teste de desenvolvimento relacionado a um software financeiro. O objetivo deste teste
+é avaliar suas habilidades técnicas, capacidade de lidar com conceitos financeiros e sua capacidade de desenvolver
+soluções para problemas do mundo real.
 
-O teste consiste na implementação de uma funcionalidade específica: um módulo de cálculo de juros compostos para um empréstimo pessoal. O usuário poderá inserir os dados do empréstimo, consultar as parcelas e confirmar o pagamento de forma assíncrona, utilizando um barramento de mensagens via fila para simular o pagamento externo e notificar o sistema.
+O teste consiste na implementação de uma funcionalidade específica: um módulo de cálculo de juros compostos para um 
+empréstimo pessoal. O usuário poderá inserir os dados do empréstimo, consultar as parcelas e confirmar o pagamento de 
+forma assíncrona, utilizando um barramento de mensagens via fila para simular o pagamento externo e notificar o sistema.
 
 Aqui estão os requisitos para a implementação do módulo:
 
@@ -12,7 +17,8 @@ Aqui estão os requisitos para a implementação do módulo:
     - As parcelas devem ter uma data de vencimento.
 
 2. Listagem das parcelas:
-    - A listagem deve mostrar apenas as parcelas do último empréstimo do usuário. Se o usuário não tiver nenhum empréstimo, um erro deve ser retornado.
+    - A listagem deve mostrar apenas as parcelas do último empréstimo do usuário. 
+    - Se o usuário não tiver nenhum empréstimo, um erro deve ser retornado.
 
 3. Confirmação de pagamento:
     - A confirmação do pagamento deve ser feita por meio de uma fila do RabbitMQ.

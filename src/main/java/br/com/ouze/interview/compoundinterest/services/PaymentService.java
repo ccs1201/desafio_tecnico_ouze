@@ -42,7 +42,6 @@ public class PaymentService {
         }
     }
 
-
     private void save(LoanInstallment loanInstallment) {
         repository.save(loanInstallment);
     }

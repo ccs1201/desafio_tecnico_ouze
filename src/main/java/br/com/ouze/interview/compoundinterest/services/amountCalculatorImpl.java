@@ -18,7 +18,6 @@ public class amountCalculatorImpl implements amountCalculator {
     private BigDecimal calculateTotalAmount(Loan loan) {
 
         return MonetaryFormatter.format(loan.getTotalValue().multiply(getInterestRate(loan)));
-
     }
 
 
