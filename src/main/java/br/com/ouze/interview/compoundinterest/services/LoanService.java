@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class LoanService {
 
     private final LoanRepository repository;
-    private final amountCalculator amountCalculator;
+    private final AmountCalculator amountCalculator;
 
     @Transactional
     public Loan createLoan(Loan loan) {

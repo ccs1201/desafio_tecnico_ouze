@@ -15,7 +15,7 @@ class AmountCalculatorImplTest {
 
     private Loan loan;
     @InjectMocks
-    private amountCalculatorImpl amountCalculator;
+    private AmountCalculatorImpl amountCalculator;
 
 
     @BeforeEach

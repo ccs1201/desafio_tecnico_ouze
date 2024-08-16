@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class amountCalculatorImpl implements amountCalculator {
+public class AmountCalculatorImpl implements AmountCalculator {
 
     @Override
     public BigDecimal calculate(Loan loan) {

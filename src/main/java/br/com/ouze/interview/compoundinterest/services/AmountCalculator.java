@@ -4,7 +4,7 @@ import br.com.ouze.interview.compoundinterest.entities.Loan;
 
 import java.math.BigDecimal;
 
-public interface amountCalculator {
+public interface AmountCalculator {
 
     BigDecimal calculate(Loan loan);
 }
